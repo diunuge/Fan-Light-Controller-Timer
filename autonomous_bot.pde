@@ -14,7 +14,8 @@
 #include <Rtc_Pcf8563.h>
 
 #define FAN_POWER_PIN 2
-#define LIGHT_POWER_PIN 3
+#define FAN_POWER_PIN_2 3
+#define LIGHT_POWER_PIN 4
 
 //init the real time clock
 Rtc_Pcf8563 rtc;
@@ -34,9 +35,11 @@ void setup()
 	Serial.write( "Starting.." );
 
 	pinMode( FAN_POWER_PIN , OUTPUT );
+	pinMode( FAN_POWER_PIN_2 , OUTPUT );
 	pinMode( LIGHT_POWER_PIN , OUTPUT );
 
 	digitalWrite( FAN_POWER_PIN , LOW );
+	digitalWrite( FAN_POWER_PIN_2 , LOW );
 	digitalWrite( LIGHT_POWER_PIN , LOW );
 	
 	//Comment when you do not need to set the clock
@@ -58,12 +61,15 @@ void loop()
 		//Serial.print(rtc.formatDate());
 		//rtc.getAlarmWeekday();
 		//Serial.print("\r\n");
+
+		
 		lights(true);
-		fans(true);
+		//fans(true);
 		delay(1000);
 		lights(false);
-		fans(false);
+		//fans(false);
 		delay(1000);
+		
 	}
 	else
 	{
@@ -124,10 +130,10 @@ void lights(bool status){
 void fans(bool status){
 	if(status){
 		digitalWrite( FAN_POWER_PIN , HIGH );
+		digitalWrite( FAN_POWER_PIN_2 , HIGH );
 	}
 	else{
 		digitalWrite( FAN_POWER_PIN , LOW );
+		digitalWrite( FAN_POWER_PIN_2 , LOW );
 	}
 }
-
-

@@ -23,8 +23,9 @@
         <VCCodeMacro Name="__asm__" Value="" />
         <VCCodeMacro Name="FAN_POWER_PIN" Value="2" />
         <VCCodeMacro Name="__volatile__" Value="" />
-        <VCCodeMacro Name="LIGHT_POWER_PIN" Value="3" />
+        <VCCodeMacro Name="FAN_POWER_PIN_2" Value="3" />
         <VCCodeMacro Name="__builtin_va_list" Value="" />
+        <VCCodeMacro Name="LIGHT_POWER_PIN" Value="4" />
         <VCCodeMacro Name="__builtin_va_start" Value="" />
         <VCCodeMacro Name="__builtin_va_end" Value="" />
         <VCCodeMacro Name="__DOXYGEN__" Value="" />
