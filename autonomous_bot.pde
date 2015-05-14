@@ -20,6 +20,8 @@
 //init the real time clock
 Rtc_Pcf8563 rtc;
 bool TEST;
+bool isFansOn;
+bool isLightsOn;
 
 typedef struct _time{
 	unsigned int hour;
@@ -47,6 +49,9 @@ void setup()
 
 	//TEST = true;
 	TEST = false;
+
+	isFansOn = false;
+	isLightsOn = false;
 }
 
 void loop()
@@ -61,7 +66,7 @@ void loop()
 		//Serial.print(rtc.formatDate());
 		//rtc.getAlarmWeekday();
 		//Serial.print("\r\n");
-
+		
 		
 		lights(true);
 		//fans(true);
@@ -84,14 +89,21 @@ void loop()
 		{
 			//power up
 			Serial.write("Powered up");		
-			lights(true);
-			fans(true);
+
+			if(!isLightsOn)
+				lights(true);
+
+			if(!isFansOn)
+				fans(true);
 		}
 		else
 		{
 			Serial.write("Powered down");	
-			lights(false);
-			fans(false);
+
+			if(isLightsOn)
+				lights(false);
+			if(isFansOn)
+				fans(false);
 		}
 
 		Serial.write("\tTime/Date:\t");
@@ -111,9 +123,9 @@ void initClock()
 	rtc.initClock();
 	//set a time to start with.
 	//day, weekday, month, century(1=1900, 0=2000), year(0-99)
-	rtc.setDate(26, 0, 4, 0, 15);
+	rtc.setDate(14, 5, 5, 0, 15);
 	//hr, min, sec
-	rtc.setTime(18, 20, 50);
+	rtc.setTime(20, 59, 30);
 	Serial.write("Initialized..");
 
 }
@@ -125,6 +137,7 @@ void lights(bool status){
 	else{
 		digitalWrite( LIGHT_POWER_PIN , LOW );
 	}
+	isLightsOn = status;
 }
 
 void fans(bool status){
@@ -136,4 +149,5 @@ void fans(bool status){
 		digitalWrite( FAN_POWER_PIN , LOW );
 		digitalWrite( FAN_POWER_PIN_2 , LOW );
 	}
+	isFansOn = status;
 }
